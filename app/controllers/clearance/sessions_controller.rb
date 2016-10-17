@@ -30,8 +30,6 @@ class Clearance::SessionsController < Clearance::BaseController
     end
   end
 
-  
-
   def destroy
     sign_out
     redirect_to url_after_destroy
