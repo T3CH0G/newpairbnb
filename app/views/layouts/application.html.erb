@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <%= stylesheet_link_tag 'application'%>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <div id="header">
+  <nav class="navbar navbar-default">
+  <div id="header" class="col-md-1">
     <% if signed_in? -%>
       <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
     <% else -%>
       <%= link_to t(".sign_in"), sign_in_path %>
     <% end -%>
   </div>
-
-   <div>
+   <div class="col-md-2">
     <% if current_user %> 
     Signed in as <strong><%= current_user.name %></strong>!
     <%= link_to "Sign out", sign_out_path, method: :delete %>
     <% else %>
-    <%= link_to "Sign in with Facebook", "/auth/facebook", id:"sign_in" %>
+    <a class="btn btn-block btn-social btn-facebook" id="sign in" href="/auth/facebook">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+      Sign in with Facebook
+    </a>
     <% end %>
   </div>
+  </nav>
 
   <div id="flash">
     <% flash.each do |key, value| -%>

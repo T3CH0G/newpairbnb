@@ -1,2 +1,12 @@
-<h1>Home#index</h1>
-<p>IT WORK DUDE!!</p>
+<div class="jumbotron">
+<h1> 
+<% if current_user %>
+Welcome to Pairbnb,
+<%=current_user.name%>
+<% else %>
+Welcome to Pairbnb,
+login to enjoy available functions
+<% end %>
+ </h1>
+</div>
+
