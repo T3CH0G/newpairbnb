@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'acts-as-taggable-on'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'figaro'
