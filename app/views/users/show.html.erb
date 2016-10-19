@@ -1,6 +1,14 @@
-<h1>Tags</h1>
+<% if  @c_user == current_user %>
+<h1> Your Profile </h1>
+<% else %>
+<h1>Profile </h1>
+<%end%>
 
-<% @listings.each do|x| %>
+<h2> <%=@c_user.name%></h2>
+
+<h3> <%=@c_user.name%>'s Listings </h3>
+<div>
+<%@c_user.listings.each do |x| %>
 <%= x.id %> <br>
 Title:
 <%=x.title%><br>
@@ -8,19 +16,9 @@ Description:
 <%=x.description%><br>
 Tags:
 <%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
-Images:
-<%= image_tag (x.avatars[0].large.url) %>
-<br>
-Posted by:
-<%= link_to x.user.name, user_path(x.user.id) %><br>
 <%if current_user.id == x.user_id%>
 <%= link_to "Edit", edit_listing_path(x) %><br>
 <%= link_to "Delete", listing_path(x), method: :delete %><br>
 <%end%>
 <br><br>
 <% end %>
-
-<%= link_to "Home", root_path %>
-
-
-

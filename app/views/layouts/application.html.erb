@@ -25,6 +25,14 @@
     </a>
     <% end %>
   </div>
+  <div class="col-md-1">
+  <% if signed_in? %>
+  <%= link_to "Profile", user_path(current_user) %>
+  <% end %>
+  </div>
+  <div class="col-md-1">
+  <%= link_to "Home", root_path %>
+  </div>
   </nav>
 
   <div id="flash">

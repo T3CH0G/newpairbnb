@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'acts-as-taggable-on'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'fog'
+gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'figaro'

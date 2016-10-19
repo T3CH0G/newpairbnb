@@ -6,6 +6,7 @@
     <%= f.text_field :description%>
     <%= f.label :tag_list, "Tags (separated by commas)" %>
     <%= f.text_field :tag_list%>
+    <%= f.file_field :avatars, multiple: true %>
     <br>
     <%= f.submit "Save changes", class: "btn btn-primary" %>
   <% end %>

@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
 
    before_action :set_listing, only: [:show, :edit, :update, :destroy]
-   
+
 	def profile
 		@my_listings = current_user.listings
 	end
@@ -35,7 +35,11 @@ class ListingsController < ApplicationController
   end
 
   def index
-  	@listings=Listing.all
+    if params[:tag]
+      @listings = Listing.tagged_with(params[:tag])
+    else
+      @listings = Listing.all
+    end
   end
 
   def destroy
@@ -43,11 +47,14 @@ class ListingsController < ApplicationController
     redirect_to listings_path 
   end
 
-  private
-
-  def listing_params #whitelist
-  	params.require(:listing).permit(:title,:description,:tag_list)
+  def tag
   end
+
+  def listing_params
+    params.require(:listing).permit(:title,:description,:tag_list, {avatars:[]})
+  end
+
+  private
 
   def set_listing
     @listing = Listing.find(params[:id])

@@ -1,0 +1,10 @@
+<div>
+<% User.all.each do |x| %>
+<%= x.id %> <br>
+Name:
+<%=x.name%><br>
+Email:
+<%=x.email%><br>
+<%= link_to "Check out profile", user_path(x) %><br>
+<% end %>
+</div>

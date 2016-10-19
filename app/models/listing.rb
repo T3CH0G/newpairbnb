@@ -2,9 +2,10 @@ class Listing < ActiveRecord::Base
      belongs_to :user
 			has_many :taggings
 			has_many :tags, through: :taggings
+			mount_uploaders :avatars, AvatarUploader
 
 def self.tagged_with(name)
-  Tag.find_by_name!(name).listings
+  Tag.find_by(name: name).listings
 end
 
 def self.tag_counts
