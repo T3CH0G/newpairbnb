@@ -3,6 +3,7 @@ class Listing < ActiveRecord::Base
 			has_many :taggings
 			has_many :tags, through: :taggings
 			mount_uploaders :avatars, AvatarUploader
+			acts_as_bookable preset: :room
 
 def self.tagged_with(name)
   Tag.find_by(name: name).listings

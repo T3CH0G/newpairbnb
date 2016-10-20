@@ -12,6 +12,8 @@ class ListingsController < ApplicationController
 
   def create
   		@listing=current_user.listings.new(listing_params)
+      @listing.schedule = IceCube::Schedule.new(Date.today, duration: 1.day)
+      @listing.schedule.add_recurrence_rule IceCube::Rule.daily
   	 	if @listing.save
     		redirect_to @listing
   		else
@@ -34,6 +36,16 @@ class ListingsController < ApplicationController
   def show
   end
 
+  def book
+    @listing = Listing.find(params[:id])
+    @user=User.find(@listing.user_id)
+    from= Time.strptime(params[:from], "%m/%d/%Y")
+    to= Time.strptime(params[:to], "%m/%d/%Y")
+    amount=params[:amount].to_i
+    @listing.be_booked! @user, time_start: from, time_end: to, amount: amount
+        render :book
+  end
+
   def index
     if params[:tag]
       @listings = Listing.tagged_with(params[:tag])
@@ -51,7 +63,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list, {avatars:[]})
+    params.require(:listing).permit(:title,:description,:tag_list,:capacity, {avatars:[]})
   end
 
   private

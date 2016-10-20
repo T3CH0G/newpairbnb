@@ -45,14 +45,35 @@ Images:
 </div>
 </div>
 
+<%if @listing.user != current_user%>
 <div class="row">
-<div class="col-md-12">
-<label for="from">From</label>
-<input type="text" id="from" name="from">
-<label for="to">to</label>
-<input type="text" id="to" name="to">
+	<div class="col-md-12">
+	<form method=post action='/book'>
+		<label for="from">From</label>
+		<input type="text" id="from" name="from">
+		<label for="to">to</label>
+		<input type="text" id="to" name="to">
+		<label for="amount">Amount</label>
+		<input type="number" id="amount" name="amount">
+		<input type="hidden" name="id" value=<%=@listing.id%> />
+		<input type="submit" value="Submit">
+	</form>
+	</div>
 </div>
-</div>
+<% end %>
+
+Bookings
+<div class="row">
+	<div class="col-md-12">
+	<%@listing.bookings.each do |x|%>
+	<%=x.id%>
+	Booking by:
+	<%=x.booker.name%>
+	From:
+	<%=x.time_start%>
+	Till:
+	<%=x.time_end%>
+	<%end%>
 
 
 <%= link_to "Home", root_path %>

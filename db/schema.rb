@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019072853) do
+ActiveRecord::Schema.define(version: 20161020035430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acts_as_bookable_bookings", force: :cascade do |t|
+    t.integer  "bookable_id"
+    t.string   "bookable_type"
+    t.integer  "booker_id"
+    t.string   "booker_type"
+    t.integer  "amount"
+    t.text     "schedule"
+    t.datetime "time_start"
+    t.datetime "time_end"
+    t.datetime "time"
+    t.datetime "created_at"
+  end
+
+  add_index "acts_as_bookable_bookings", ["bookable_type", "bookable_id"], name: "index_acts_as_bookable_bookings_bookable", using: :btree
+  add_index "acts_as_bookable_bookings", ["booker_type", "booker_id"], name: "index_acts_as_bookable_bookings_booker", using: :btree
 
   create_table "authentications", force: :cascade do |t|
     t.string   "uid"
@@ -29,6 +45,8 @@ ActiveRecord::Schema.define(version: 20161019072853) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "description"
+    t.string   "schedule"
+    t.integer  "capacity"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.json     "avatars"

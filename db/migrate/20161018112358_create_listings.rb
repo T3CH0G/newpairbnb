@@ -4,7 +4,10 @@ class CreateListings < ActiveRecord::Migration
     	t.integer :user_id
     	t.string :title
     	t.string :description
+    	t.string :schedule
+    	t.integer :capacity
     	t.timestamps null:false
+    	t.json :avatars
     end
   end
 end
