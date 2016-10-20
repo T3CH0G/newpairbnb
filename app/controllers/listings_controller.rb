@@ -1,6 +1,7 @@
 class ListingsController < ApplicationController
 
    before_action :set_listing, only: [:show, :edit, :update, :destroy]
+   skip_before_action :verify_authenticity_token
 
 	def profile
 		@my_listings = current_user.listings
@@ -24,6 +25,10 @@ class ListingsController < ApplicationController
   def edit
   end
 
+  def search
+    @listings = Listing.where(city: params[:city])
+  end
+
   def update
     @listing.update(listing_params)
       if @listing.save
@@ -38,13 +43,13 @@ class ListingsController < ApplicationController
 
   def book
     @listing = Listing.find(params[:id])
-    @user=User.find(@listing.user_id)
     from= Time.strptime(params[:from], "%m/%d/%Y")
     to= Time.strptime(params[:to], "%m/%d/%Y")
     amount=params[:amount].to_i
-    @listing.be_booked! @user, time_start: from, time_end: to, amount: amount
-        render :book
+    @booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount
+    render :book
   end
+
 
   def index
     if params[:tag]
@@ -63,7 +68,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list,:capacity, {avatars:[]})
+    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:city, {avatars:[]})
   end
 
   private

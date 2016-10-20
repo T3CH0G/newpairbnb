@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161020035430) do
     t.string   "description"
     t.string   "schedule"
     t.integer  "capacity"
+    t.string   "city"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.json     "avatars"

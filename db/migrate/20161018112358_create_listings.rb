@@ -6,6 +6,7 @@ class CreateListings < ActiveRecord::Migration
     	t.string :description
     	t.string :schedule
     	t.integer :capacity
+        t.string :city
     	t.timestamps null:false
     	t.json :avatars
     end

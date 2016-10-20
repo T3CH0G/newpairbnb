@@ -1,4 +1,4 @@
-<h1>Tags</h1>
+<h1> Search </h1>
 
 <% @listings.each do|x| %>
 <%= x.id %> <br>
@@ -22,8 +22,3 @@ Posted by:
 <%= link_to "View full listing", listing_path(x) %>
 <br>
 <% end %>
-
-<%= link_to "Home", root_path %>
-
-
-

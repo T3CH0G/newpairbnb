@@ -1,1 +1,13 @@
-<h1> Booked </h1>
+<h1> Booking confirmed! </h1>
+<h4> Details </h4>
+Listing:
+<%=@listing.title%><br>
+Start Date:
+<%=@booking.time_start%><br>
+End Date:
+<%=@booking.time_end%><br>
+</div>
+
+<br>
+
+<%= link_to "Back to Listing", listing_path(@listing)%>

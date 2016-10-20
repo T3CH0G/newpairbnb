@@ -6,7 +6,7 @@
 
 <h2> <%=@c_user.name%></h2>
 
-<h3> <%=@c_user.name%>'s Listings </h3>
+<h4> <%=@c_user.name%>'s Listings </h4>
 <div>
 <%@c_user.listings.each do |x| %>
 <%= x.id %> <br>
@@ -22,3 +22,25 @@ Tags:
 <%end%>
 <br><br>
 <% end %>
+<br>
+</div>
+
+<h4> <%=@c_user.name%>'s Reservations </h4>
+<div>
+<%y=0%>
+<%@c_user.bookings.each do |x| %>
+<%=y+=1%><br>
+Listing:
+<%=x.bookable.title%><br>
+Start Date:
+<%=x.time_start%><br>
+Start Date:
+<%=x.time_end%><br>
+<%= link_to "View full listing", listing_path(x.bookable) %><br>
+<%end%>
+</div>
+
+<br>
+<%= link_to "Back to Profile", user_path(current_user) %>
+
+

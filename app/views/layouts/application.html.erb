@@ -4,6 +4,7 @@
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag    "acts_as_bookable/application", media: "all" %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pairbnb</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -74,6 +75,21 @@
   <%= link_to "Home", root_path %>
   </div>
   </nav>
+
+   <div class="col-md-2">
+  <%= link_to "Home", root_path %>
+  </div>
+  </nav>
+
+  <div class="row">
+  <div class="col-md-12">
+  <form method=post action='/search'>
+    <label for="search">Search:</label>
+    <input type="text" id="city" name="city">
+    <input type="submit" value="submit" name="submit">
+    </form>
+    </div>
+  </div>
 
   <div id="flash">
     <% flash.each do |key, value| -%>
