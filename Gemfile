@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'acts_as_bookable'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'fog'
 gem 'mini_magick'
