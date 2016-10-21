@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'braintree'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'ice_cube'

@@ -17,12 +17,17 @@ root 'home#index'
       only: [:create, :edit, :update]
   end
 
+  get "/success", to: 'listings#success'
+  get "/book", to: 'listings#book'
   post "/book", to: 'listings#book'
+  post "/pay", to: 'payments#new'
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"
   get 'tags/:tag', to: 'listings#index', as: :tag
   post '/search', to: 'listings#search'
+  get '/payment', to: 'payments#new'
+  post '/payments', to: 'payments#create'
 end
 
 

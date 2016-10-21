@@ -63,7 +63,8 @@ Images:
 		<input type="text" id="to" name="to">
 		<label for="amount">Amount</label>
 		<input type="number" id="amount" name="amount">
-		<input type="hidden" name="id" value=<%=@listing.id%> />
+		<input type="hidden" name="id" value=<%=@listing.id%> >
+    <input type="hidden" name="price" value=<%=@listing.price%> >
 		<input type="submit" value="Submit">
 	</form>
 	</div>

@@ -9,6 +9,7 @@ class CreateActsAsBookableBookings < ActiveRecord::Migration
       t.column :time_start, :datetime
       t.column :time_end, :datetime
       t.column :time, :datetime
+      t.integer :total_sum
       t.datetime :created_at
     end
   end

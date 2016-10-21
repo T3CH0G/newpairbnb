@@ -40,6 +40,7 @@ class ListingsController < ApplicationController
 
   def show
     @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 5)
+    @listing = Listing.find(params[:id])
   end
 
   def book
@@ -47,10 +48,16 @@ class ListingsController < ApplicationController
     from= Time.strptime(params[:from], "%m/%d/%Y")
     to= Time.strptime(params[:to], "%m/%d/%Y")
     amount=params[:amount].to_i
-    @booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount
-    render :book
+    price=params[:price].to_i
+    @Acts_as_bookable_booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount, total_sum: price*(to.day-from.day)
     @host = @listing.user.email
-    ReservationJob.perform_later(@booking,@host)
+    ReservationJob.perform_later(@Acts_as_bookable_booking,@host)
+    redirect_to payment_path(@Acts_as_bookable_booking)
+  end
+
+  def success
+    @Acts_as_bookable_booking = Acts_as_bookable_booking.find(params[:id])
+    @listing= Listing.find(@Acts_as_bookable_booking.bookable_id)
   end
 
 
@@ -71,7 +78,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:city, {avatars:[]})
+    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:city,:price, {avatars:[]})
   end
 
   private
