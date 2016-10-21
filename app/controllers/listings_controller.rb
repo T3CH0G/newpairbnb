@@ -49,6 +49,8 @@ class ListingsController < ApplicationController
     amount=params[:amount].to_i
     @booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount
     render :book
+    @host = @listing.user.email
+    ReservationMailer.notification_email(@booking,@host).deliver_now
   end
 
 
