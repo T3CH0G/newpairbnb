@@ -11,7 +11,11 @@ City:
 Tags:
 <%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
 Images:
-<%= image_tag (x.avatars[0].large.url) %>
+<%if x.avatars[0] !=  nil%>
+<%= image_tag (x.avatars[0].medium.url) %>
+<%else%>
+No images yet!
+<% end %>
 <br>
 Posted by:
 <%= link_to x.user.name, user_path(x.user.id) %><br>
@@ -22,6 +26,8 @@ Posted by:
 <%= link_to "View full listing", listing_path(x) %>
 <br>
 <% end %>
+
+<%= will_paginate @listings %>
 
 <%= link_to "Home", root_path %>
 

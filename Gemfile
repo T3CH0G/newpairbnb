@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+
+gem 'will_paginate'
 gem 'ice_cube'
 gem 'acts_as_bookable'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'

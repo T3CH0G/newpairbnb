@@ -1,17 +1,28 @@
-<div class="col-md-6 col-md-offset-3">
-  <%= form_for @listing do |f| %>
-	<%= f.label :title %>
+<div class="row">
+    <div class="col-md-2 col-md-offset-5" id="form">
+    <div class="text-center">
+    <%= form_for @listing do |f| %>
+	<%= f.label :title %><br>
     <%= f.text_field :title %>
-	<%= f.label :description %>
+    <br><br>
+	<%= f.label :description %><br>
     <%= f.text_field :description%>
-    <%= f.label :city %>
+    <br><br>
+    <%= f.label :city %><br>
     <%= f.text_field :city%>
-    <%= f.label :capacity %>
+    <br><br>
+    <%= f.label :capacity %><br>
     <%= f.number_field :capacity%>
-    <%= f.label :tag_list, "Tags (separated by commas)" %>
+    <br><br>
+    <%= f.label :tag_list, "Tags (separated by commas)" %><br>
     <%= f.text_field :tag_list%>
+    <br><br>
+    <div id="img">
     <%= f.file_field :avatars, multiple: true %>
-    <br>
+    </div>
+    <br><br>
     <%= f.submit "Save changes", class: "btn btn-primary" %>
   <% end %>
-<div class="gravatar_edit">
+  </div>
+</div>
+</div>

@@ -87,6 +87,9 @@ Images:
 	<%=x.time_end%>
   <br><br>
 	<%end%>
+<% elsif currrent_user=@listing.user && @listing.bookings.count == 0%>
+<h4>No bookings yet!
+<br>
 <% else %>
 <br>
 <h4>No bookings yet! Fill in the fields above to book!</h4>

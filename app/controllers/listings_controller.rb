@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
    skip_before_action :verify_authenticity_token
 
 	def profile
-		@my_listings = current_user.listings
+		@my_listings = current_user.listings.paginate(:page => params[:page], :per_page => 5)
 	end
 
   def new
@@ -26,7 +26,7 @@ class ListingsController < ApplicationController
   end
 
   def search
-    @listings = Listing.where(city: params[:city])
+    @listings = Listing.where(city: params[:city]).paginate(:page => params[:page], :per_page => 5)
   end
 
   def update
@@ -39,6 +39,7 @@ class ListingsController < ApplicationController
   end
 
   def show
+    @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 5)
   end
 
   def book
@@ -53,9 +54,9 @@ class ListingsController < ApplicationController
 
   def index
     if params[:tag]
-      @listings = Listing.tagged_with(params[:tag])
+      @listings = Listing.tagged_with(params[:tag]).paginate(:page => params[:page], :per_page => 5)
     else
-      @listings = Listing.all
+      @listings = Listing.all.paginate(:page => params[:page], :per_page => 5)
     end
   end
 
