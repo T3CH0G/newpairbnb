@@ -1,3 +1,5 @@
+<div class="text-center">
+
 <h1>Listing</h1>
 Title:
 <%=@listing.title%>
@@ -77,7 +79,7 @@ Images:
 <h4>Bookings</h4>
 <div class="row">
 	<div class="col-md-12">
-	<%@listing.bookings.each do |x|%>
+	<%@cbookings.each do |x|%>
 	<%=x.id%>
 	Booking by:
 	<%=x.booker.name%>
@@ -88,11 +90,13 @@ Images:
   <br><br>
 	<%end%>
 <% elsif currrent_user=@listing.user && @listing.bookings.count == 0%>
-<h4>No bookings yet!
+<div class="text-center">
+<h4>No bookings yet!</h4>
 <br>
 <% else %>
 <br>
 <h4>No bookings yet! Fill in the fields above to book!</h4>
+</div>
 <%end%>
 </div>
 </div>
@@ -100,8 +104,10 @@ Images:
 </div>
 
 
-
+<div class="text-center">
 <%= link_to "Home", root_path %>
 <br>
 <%= link_to "Edit", edit_listing_path %>
+</div>
+</div>
 

@@ -1,4 +1,5 @@
-<div>
+<div class="text-center">
+<h1> Users </h1>
 <% User.all.each do |x| %>
 <%= x.id %> <br>
 Name:
@@ -6,5 +7,6 @@ Name:
 Email:
 <%=x.email%><br>
 <%= link_to "Check out profile", user_path(x) %><br>
+------------------------------------------------------------<br>
 <% end %>
 </div>

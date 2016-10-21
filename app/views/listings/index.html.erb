@@ -1,4 +1,5 @@
-<h1>Tags</h1>
+<div class="text-center">
+<h1>Listings</h1>
 
 <% @listings.each do|x| %>
 <%= x.id %> <br>
@@ -10,7 +11,7 @@ City:
 <%=x.city%><br>
 Tags:
 <%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
-Images:
+Images:<br>
 <%if x.avatars[0] !=  nil%>
 <%= image_tag (x.avatars[0].medium.url) %>
 <%else%>
@@ -25,11 +26,14 @@ Posted by:
 <%end%>
 <%= link_to "View full listing", listing_path(x) %>
 <br>
+----------------------------------------------------------------------<br>
 <% end %>
 
 <%= will_paginate @listings %>
+<br>
 
 <%= link_to "Home", root_path %>
 
+</div>
 
 
