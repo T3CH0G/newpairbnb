@@ -26,8 +26,13 @@ class ListingsController < ApplicationController
   end
 
   def search
-    @listings = Listing.where(city: params[:city]).paginate(:page => params[:page], :per_page => 5)
-  end
+    @listings = Listing.search(params[:term], fields: ["title", "location"], mispellings: {below: 5})
+        if @listings.blank?
+          redirect_to listings_path, flash:{danger: "no successful search result"}
+        else
+          render :search
+        end
+    end
 
   def update
     @listing.update(listing_params)
@@ -78,7 +83,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:city,:price, {avatars:[]})
+    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:location,:price, {avatars:[]})
   end
 
   private

@@ -25,7 +25,7 @@ root 'home#index'
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
   get "/sign_up" => "clearance/users#new", as: "sign_up"
   get 'tags/:tag', to: 'listings#index', as: :tag
-  post '/search', to: 'listings#search'
+  get '/search', to: 'listings#search'
   get '/payment', to: 'payments#new'
   post '/payments', to: 'payments#create'
 end

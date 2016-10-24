@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20161021034437) do
     t.string   "description"
     t.string   "schedule"
     t.integer  "capacity"
-    t.string   "city"
+    t.string   "location"
     t.integer  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

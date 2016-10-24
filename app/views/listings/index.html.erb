@@ -7,8 +7,8 @@ Title:
 <%=x.title%><br>
 Description:
 <%=x.description%><br>
-City:
-<%=x.city%><br>
+Location:
+<%=x.location%><br>
 Tags:
 <%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
 Images:<br>

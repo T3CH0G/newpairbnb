@@ -6,8 +6,8 @@ Title:
 <br>
 Description:
 <%=@listing.description%>
-City:
-<%=@listing.city%>
+Location:
+<%=@listing.location%>
 Tags:
 <%= @listing.tag_list%>
 <br>
@@ -44,6 +44,8 @@ Images:
         <span class="sr-only">Next</span>
       </a>
     </div>
+  <%else%>
+  No images yet!
   <%end%>
 </div>
 </div>

@@ -23,4 +23,5 @@ def tag_list=(names)
     Tag.where(name: n.strip).first_or_create!
   end
 end
+searchkick match: :word_start, searchable: [:title, :location]
 end
