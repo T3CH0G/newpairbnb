@@ -44,8 +44,8 @@ class ListingsController < ApplicationController
   end
 
   def show
-    @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 5)
     @listing = Listing.find(params[:id])
+    @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 5)
   end
 
   def book
@@ -54,10 +54,14 @@ class ListingsController < ApplicationController
     to= Date.strptime(params[:to], "%m/%d/%Y")
     amount=params[:amount].to_i
     price=params[:price].to_i
-    @Acts_as_bookable_booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount, total_sum: price*(to.mjd-from.mjd)
-    @host = @listing.user.email
-    ReservationJob.perform_later(@Acts_as_bookable_booking,@host)
-    redirect_to payment_path(@Acts_as_bookable_booking)
+    if @listing.check_availability(time_start: from, time_end: to, amount: amount) == true
+      @Acts_as_bookable_booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount, total_sum: price*(to.mjd-from.mjd)
+        @host = @listing.user.email
+        ReservationJob.perform_later(@Acts_as_bookable_booking,@host)
+        redirect_to payment_path(@Acts_as_bookable_booking)
+    else
+        redirect_to @listing, flash:{danger: "You have either chosen a date that is not available or have too many people for this accomadation, please try again."}
+    end
   end
 
   def success
@@ -85,7 +89,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:location,:price, {avatars:[]})
+    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:location,:price,{avatars:[]})
   end
 
   private

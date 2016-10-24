@@ -1,5 +1,6 @@
 <head>
-<script>  $( function() {
+<script> 
+$( function() {
     var dateFormat = "mm/dd/yy",
       from = $( "#from" )
         .datepicker({
@@ -84,6 +85,13 @@ Images:
 </div>
 </div>
 
+<% if @msg%>
+<div class="row" >
+<div class ="col-md-12">
+<%= @msg %> 
+</div>
+</div>
+<%end%>
 
   <div class="row" >
     <div class ="col-md-12">
