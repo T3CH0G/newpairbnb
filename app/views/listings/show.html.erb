@@ -49,68 +49,64 @@ Images:
   <%end%>
 </div>
 </div>
-</div>
 
-<%if @listing.user != current_user%>
-<div class="row" >
-<div class ="col-md-6">
-<h4>Booking form</h4>
-(Check for availability, no 2 occupants can share the same timespan)
-<div class="row">
-	<div class="col-md-12">
-	<form method=post action='/book'>
-		<label for="from">From</label>
+
+  <div class="row" >
+    <div class ="col-md-12">
+      <%if @listing.user != current_user%>
+      <br><br>
+      <h4>Booking form</h4>
+    (Check for availability below, no 2 occupants can share the same timespan.)
+    <br><br>
+	 <form method=post action='/book'>
+		<label for="from">From:</label>
 		<input type="text" id="from" name="from">
-		<label for="to">to</label>
+		<label for="to">To:</label>
 		<input type="text" id="to" name="to">
-		<label for="amount">Amount</label>
+		<label for="amount">Number of people:</label>
 		<input type="number" id="amount" name="amount">
 		<input type="hidden" name="id" value=<%=@listing.id%> >
     <input type="hidden" name="price" value=<%=@listing.price%> >
 		<input type="submit" value="Submit">
 	</form>
-	</div>
-</div>
-<% end %>
-</div>
+    <% end %>
+  </div>
+  </div>
 </div>
 
-<%if @listing.bookings.count > 0 %>
-<div class="row" >
-<div class ="col-md-6">
+  <div class="row" >
+    <div class ="col-md-12"> <br>
+    <%if @listing.bookings.count > 0 %>
+    <br><br>
+    <h4>Bookings</h4>
+  	<%@cbookings.each do |x|%>
+	 <%=x.id%>.
+  	Booking by:
+  	<%=x.booker.name%>,
+  	From:
+  	<%=x.time_start.to_date%>,
+  	Till:
+  	<%=x.time_end.to_date%>
+
+    <br><br>
+	 <%end%>
+  <% elsif currrent_user=@listing.user && @listing.bookings.count == 0%>
+    <h4>No bookings yet!</h4>
+    <br>
+  <% else %>
+    <br>
+    <h4>No bookings yet! Fill in the fields above to book!</h4>
+  <%end%>
+  </div>
+  </div>
+
+<%= link_to "Home", root_path %>
 <br>
-<h4>Bookings</h4>
-<div class="row">
-	<div class="col-md-12">
-	<%@cbookings.each do |x|%>
-	<%=x.id%>
-	Booking by:
-	<%=x.booker.name%>
-	From:
-	<%=x.time_start%>
-	Till:
-	<%=x.time_end%>
-  <br><br>
-	<%end%>
-<% elsif currrent_user=@listing.user && @listing.bookings.count == 0%>
-<div class="text-center">
-<h4>No bookings yet!</h4>
-<br>
-<% else %>
-<br>
-<h4>No bookings yet! Fill in the fields above to book!</h4>
-</div>
+<% if @listing.user == current_user %>
+<%= link_to "Edit", edit_listing_path(@listing) %><br>
+<%= link_to "Delete", listing_path(@listing), method: :delete %><br>
 <%end%>
 </div>
 </div>
-</div>
-</div>
 
-
-<div class="text-center">
-<%= link_to "Home", root_path %>
-<br>
-<%= link_to "Edit", edit_listing_path %>
-</div>
-</div>
 

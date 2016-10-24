@@ -6,6 +6,7 @@
 <%end%>
 
 <h2> <%=@c_user.name%></h2>
+<br>
 
 <h4> <%=@c_user.name%>'s Listings </h4>
 <div>
@@ -21,13 +22,23 @@ Tags:
 <%= link_to "Edit", edit_listing_path(x) %><br>
 <%= link_to "Delete", listing_path(x), method: :delete %><br>
 <%end%>
-<br><br>
+Images:<br>
+<%if x.avatars[0] !=  nil%>
+<%= image_tag (x.avatars[0].medium.url) %>
+<%else%>
+No images yet!
+<% end %>
+<br>
+<br>
 <% end %>
 <br>
 </div>
 
 <h4> <%=@c_user.name%>'s Reservations </h4>
 <div>
+<% if @c_user.bookings.count == 0%>
+No reservations yet!
+<%else%>
 <%y=0%>
 <%@c_user.bookings.each do |x| %>
 <%=y+=1%><br>
@@ -35,9 +46,10 @@ Listing:
 <%=x.bookable.title%><br>
 Start Date:
 <%=x.time_start%><br>
-Start Date:
+End Date:
 <%=x.time_end%><br>
 <%= link_to "View full listing", listing_path(x.bookable) %><br>
+<%end%>
 <%end%>
 </div>
 

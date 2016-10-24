@@ -3,8 +3,8 @@
 
 <ul class="list-group">
   <li class="list-group-item">
-    <p>Listing name: <%= link_to @listing, listing_path(@listing) %></p>
-    <p>No. of Guest: <%= @Acts_as_bookable_booking.amount%> </p>
+    <p>Listing name: <%= link_to @listing.title, listing_path(@listing) %></p>
+    <p>No. of Guests: <%= @Acts_as_bookable_booking.amount%> </p>
     <p>Check-in Date: <%= @Acts_as_bookable_booking.time_start %></p>
 
     <p>Checkout Date: <%= @Acts_as_bookable_booking.time_end %></p>

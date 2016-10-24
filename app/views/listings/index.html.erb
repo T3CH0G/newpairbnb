@@ -1,4 +1,7 @@
-<div class="text-center">
+<div class="row">
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
 <h1>Listings</h1>
 
 <% @listings.each do|x| %>
@@ -20,10 +23,6 @@ No images yet!
 <br>
 Posted by:
 <%= link_to x.user.name, user_path(x.user.id) %><br>
-<%if current_user.id == x.user_id%>
-<%= link_to "Edit", edit_listing_path(x) %><br>
-<%= link_to "Delete", listing_path(x), method: :delete %><br>
-<%end%>
 <%= link_to "View full listing", listing_path(x) %>
 <br>
 ----------------------------------------------------------------------<br>
@@ -35,5 +34,9 @@ Posted by:
 <%= link_to "Home", root_path %>
 
 </div>
+<div class="col-md-4">
+</div>
+</div>
+
 
 

@@ -28,7 +28,7 @@ class ListingsController < ApplicationController
   def search
     @listings = Listing.search(params[:term], fields: ["title", "location"], mispellings: {below: 5})
         if @listings.blank?
-          redirect_to listings_path, flash:{danger: "no successful search result"}
+          redirect_to root_path, flash:{danger: "no successful search result"}
         else
           render :search
         end
@@ -50,11 +50,11 @@ class ListingsController < ApplicationController
 
   def book
     @listing = Listing.find(params[:id])
-    from= Time.strptime(params[:from], "%m/%d/%Y")
-    to= Time.strptime(params[:to], "%m/%d/%Y")
+    from= Date.strptime(params[:from], "%m/%d/%Y")
+    to= Date.strptime(params[:to], "%m/%d/%Y")
     amount=params[:amount].to_i
     price=params[:price].to_i
-    @Acts_as_bookable_booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount, total_sum: price*(to.day-from.day)
+    @Acts_as_bookable_booking = @listing.be_booked! current_user, time_start: from, time_end: to, amount: amount, total_sum: price*(to.mjd-from.mjd)
     @host = @listing.user.email
     ReservationJob.perform_later(@Acts_as_bookable_booking,@host)
     redirect_to payment_path(@Acts_as_bookable_booking)
@@ -75,8 +75,10 @@ class ListingsController < ApplicationController
   end
 
   def destroy
+    Tagging.where(listing_id: params[:id]).destroy_all
+    Acts_as_bookable_booking.where(bookable_id: params[:id]).destroy_all
     @listing.destroy
-    redirect_to listings_path 
+    redirect_to listings_path
   end
 
   def tag
