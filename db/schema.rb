@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20161021034437) do
     t.string   "encrypted_password", limit: 128
     t.string   "confirmation_token", limit: 128
     t.string   "remember_token",     limit: 128, null: false
+    t.json     "avatars"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

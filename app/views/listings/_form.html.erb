@@ -9,42 +9,31 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif;}
 </style>
 </head>
 
-<form method=post action='/listings'>
-   <div class="w3-group">
-        <label for="title">Title:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="title" name="title">
-  </div>
-
-  <div class="w3-group">
-        <label for="description">Description:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="description" name="description">
-  </div>
-
+    <%= form_for @listing do |f| %>
     <div class="w3-group">
-        <label for="location">Location:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="location" name="location">
-  </div>
+   <%= f.label :title %><br>
+     <%= f.text_field :title, :class=> "w3-input w3-border w3-hover-border-black" %>
+     </div>
+     <div class="w3-group">
+   <%= f.label :description %><br>
+     <%= f.text_field :description, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <%= f.label :location %><br>
+     <%= f.text_field :location, :class=> "w3-input w3-border w3-hover-border-black"%>
+     <div class="w3-group">
+     <%= f.label :capacity %><br>
+     <%= f.number_field :capacity, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <%= f.label :price %><br>
+     <%= f.number_field :price, :class=> "w3-input w3-border w3-hover-border-black"%>
+     <div class="w3-group">
+     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+     <%= f.text_field :tag_list, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <div class="w3-group">
+     <%= f.label :avatars,"Images:"%> <br>
+     <%= f.file_field :avatars, multiple: true, :class=> "w3-input w3-border w3-hover-border-black" %>
+     </div>
 
-  <div class="w3-group">
-        <label for="capacity">Capacity:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" id="capacity" name="capacity">
-  </div>
-
-    <div class="w3-group">
-        <label for="price">Price:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" id="price" name="price">
-  </div>
-
-    <div class="w3-group">
-        <label for="tag_list">Tags (separated by commas):</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="tag_list" name="tag_list">
-  </div>
-
-  <div class="w3-group">
-        <label for="avatars">Images:</label>
-        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="file" id="avatars" name="avatars" multiple>
-  </div>
-        <input class="w3-btn w3-btn-block w3-padding-12" type="submit" value="Submit">
-    </form>
-</div>
-</div>
+     <%= f.submit "Save changes",:class=> "w3-btn w3-btn-block w3-padding-12" %>
+   <% end %>

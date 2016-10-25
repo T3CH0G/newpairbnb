@@ -52,15 +52,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #make sure minimagick is included
 
   version :large do
-    process resize_to_fit: [800, 600]
+    process resize_to_fill: [800, 600]
   end
 
   version :medium, :from_version => :large do
-    process resize_to_fit: [500, 500]
+    process resize_to_fill: [411, 223]
   end
 
   version :thumb, :from_version => :medium do
-    process resize_to_fit: [100, 100]
+    process resize_to_fill: [100, 100]
   end
 
   version :square do

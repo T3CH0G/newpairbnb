@@ -18,18 +18,34 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   
     <!-- Left Column -->
     <div class="w3-third">
-    
-      <div class="w3-white w3-text-grey w3-card-4">
-        <div class="w3-display-container">
-          <img src="/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">
+      <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-container">
+        <h4 class="w3-center"><%=@user.name%></h4>
+        <p class="w3-center">
+          <%if @user.avatars[0] !=  nil%>
+              <%= image_tag (@user.avatars[0].medium.url) %>
+              <%else%>
+              No images yet, click below to upload!
+              <% end %>
+              </p>
+              <hr>
           <div class="w3-display-bottomleft w3-container w3-text-black">
-            <h2><%=@c_user.name%></h2>
           </div>
         </div>
         <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>User</p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@c_user.email%></p>
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+          <p><i cclass="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><%=@user.name%></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.email%></p>
+          <%if @user==current_user%>
+          <p>
+        <%= form_for @user do |f| %>
+        <div class="w3-group">
+        <%= f.label :avatars,"Choose a profile pic:"%> <br>
+        <%= f.file_field :avatars, multiple: true, :class=> "w3-input w3-border w3-hover-border-black" %>
+        </div>
+        <%= f.submit "Save changes",:class=> "w3-btn w3-btn-block w3-padding-12" %>
+        <% end %>
+    		</p>
+        <%end%>
           <hr>
         </div>
         </div>
@@ -41,8 +57,10 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     
       <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Listings</h2>
-
-        <%@c_user.listings.each do |x| %>
+        <% if @user.listings.count == 0%>
+        <h2> No listings yet!</h2>
+        <%else%>
+        <%@user.listings.each do |x| %>
         <div class="w3-container">
           <h5 class="w3-opacity"><b><%=x.title%></b></h5>
           <h6 class="w3-text-teal">Tags:<span class="w3-tag w3-teal w3-round"><%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></span></h6>
@@ -52,18 +70,21 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 						<%else%>
 						No images yet!
 						<% end %>
+            <br><br>
+            <p><%= link_to "View listing", listing_path(x) %></p>
 						<hr>
 						</div>
           <% end %>
           <hr>
         </div>
+        <%end%>
 			
 			<div class="w3-container w3-card-2 w3-white">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Reservations</h2>
-        <% if @c_user.bookings.count == 0%>
+        <% if @user.bookings.count == 0%>
         <h2> No reservations yet!</h2>
         <%else%>
-        <%@c_user.bookings.each do |x| %>
+        <%@user.bookings.each do |x| %>
 
         <div class="w3-container">
           <h5 class="w3-opacity"><b><%=x.bookable.title%></b></h5>
@@ -79,12 +100,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     </div>
   </div>
 
-
 <footer class="w3-container w3-teal w3-center w3-margin-top">
   <p><%= link_to "Back to Users", users_path %></p>
 </footer>
 
 </body>
+
+
+
 
 
 
