@@ -6,6 +6,7 @@ before_action :set_user, only: [:show]
 	end
 
 	def index
+		@user=User.all.paginate(:page => params[:page], :per_page => 5)
 	end
 	
 	private

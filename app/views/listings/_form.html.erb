@@ -1,32 +1,50 @@
-<div class="row">
-    <div class="col-md-2 col-md-offset-5" id="form">
-    <div class="text-center">
-    <%= form_for @listing do |f| %>
-	<%= f.label :title %><br>
-    <%= f.text_field :title %>
-    <br><br>
-	<%= f.label :description %><br>
-    <%= f.text_field :description%>
-    <br><br>
-    <%= f.label :location %><br>
-    <%= f.text_field :location%>
-    <br><br>
-    <%= f.label :capacity %><br>
-    <%= f.number_field :capacity%>
-    <br><br>
-    <%= f.label :price %><br>
-    <%= f.number_field :price%>
-    <br><br>
-    <%= f.label :tag_list, "Tags (separated by commas)" %><br>
-    <%= f.text_field :tag_list%>
-    <br><br>
-    <div id="img">
-    <%= f.label :avatars,"Images:"%> <br>
-    <%= f.file_field :avatars, multiple: true %>
-    </div>
-    <br><br>
-    <%= f.submit "Save changes", class: "btn btn-primary" %>
-  <% end %>
+<head>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif;}
+.w3-left, .w3-right, .w3-tag {cursor:pointer;}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px;}
+</style>
+</head>
+
+<form method=post action='/listings'>
+   <div class="w3-group">
+        <label for="title">Title:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="title" name="title">
   </div>
+
+  <div class="w3-group">
+        <label for="description">Description:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="description" name="description">
+  </div>
+
+    <div class="w3-group">
+        <label for="location">Location:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="location" name="location">
+  </div>
+
+  <div class="w3-group">
+        <label for="capacity">Capacity:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" id="capacity" name="capacity">
+  </div>
+
+    <div class="w3-group">
+        <label for="price">Price:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" id="price" name="price">
+  </div>
+
+    <div class="w3-group">
+        <label for="tag_list">Tags (separated by commas):</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="tag_list" name="tag_list">
+  </div>
+
+  <div class="w3-group">
+        <label for="avatars">Images:</label>
+        <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="file" id="avatars" name="avatars" multiple>
+  </div>
+        <input class="w3-btn w3-btn-block w3-padding-12" type="submit" value="Submit">
+    </form>
 </div>
 </div>

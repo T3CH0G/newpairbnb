@@ -1,59 +1,90 @@
-<div class="text-center">
-<% if  @c_user == current_user %>
-<h1> Your Profile </h1>
-<% else %>
-<h1>Profile </h1>
-<%end%>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+</head>
 
-<h2> <%=@c_user.name%></h2>
-<br>
+<body class="w3-light-grey">
 
-<h4> <%=@c_user.name%>'s Listings </h4>
-<div>
-<%@c_user.listings.each do |x| %>
-<%= x.id %> <br>
-Title:
-<%=x.title%><br>
-Description:
-<%=x.description%><br>
-Tags:
-<%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
-<%if current_user.id == x.user_id%>
-<%= link_to "Edit", edit_listing_path(x) %><br>
-<%= link_to "Delete", listing_path(x), method: :delete %><br>
-<%end%>
-Images:<br>
-<%if x.avatars[0] !=  nil%>
-<%= image_tag (x.avatars[0].medium.url) %>
-<%else%>
-No images yet!
-<% end %>
-<br>
-<br>
-<% end %>
-<br>
-</div>
+<!-- Page Container -->
+<div class="w3-container w3-content w3-margin-top" style="max-width:1400px;">
 
-<h4> <%=@c_user.name%>'s Reservations </h4>
-<div>
-<% if @c_user.bookings.count == 0%>
-No reservations yet!
-<%else%>
-<%y=0%>
-<%@c_user.bookings.each do |x| %>
-<%=y+=1%><br>
-Listing:
-<%=x.bookable.title%><br>
-Start Date:
-<%=x.time_start%><br>
-End Date:
-<%=x.time_end%><br>
-<%= link_to "View full listing", listing_path(x.bookable) %><br>
-<%end%>
-<%end%>
-</div>
+  <!-- The Grid -->
+  <div class="w3-row-padding" style="margin:0 -16px">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+            <h2><%=@c_user.name%></h2>
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>User</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@c_user.email%></p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>
+          <hr>
+        </div>
+        </div>
+        </div>
 
-<br>
-<%= link_to "Back to Users", users_path %>
-</div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Listings</h2>
+
+        <%@c_user.listings.each do |x| %>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b><%=x.title%></b></h5>
+          <h6 class="w3-text-teal">Tags:<span class="w3-tag w3-teal w3-round"><%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></span></h6>
+          <p><%=x.description%></p>
+          <%if x.avatars[0] !=  nil%>
+						<%= image_tag (x.avatars[0].square.url) %>
+						<%else%>
+						No images yet!
+						<% end %>
+						<hr>
+						</div>
+          <% end %>
+          <hr>
+        </div>
+			
+			<div class="w3-container w3-card-2 w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Reservations</h2>
+        <% if @c_user.bookings.count == 0%>
+        <h2> No reservations yet!</h2>
+        <%else%>
+        <%@c_user.bookings.each do |x| %>
+
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b><%=x.bookable.title%></b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>From <%=x.time_start.to_date%> till <%=x.time_end.to_date%></h6>
+          <p><%= link_to "View listing", listing_path(x.bookable) %></p>
+          <hr>
+        </div>
+      <%end%>
+      <%end%>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p><%= link_to "Back to Users", users_path %></p>
+</footer>
+
+</body>
+
+
 

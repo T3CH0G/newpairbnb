@@ -45,7 +45,7 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.find(params[:id])
-    @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 5)
+    @cbookings=@listing.bookings.paginate(:page => params[:page], :per_page => 3)
   end
 
   def book
@@ -89,7 +89,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title,:description,:tag_list,:capacity,:location,:price,{avatars:[]})
+    params.permit(:title,:description,:tag_list,:capacity,:location,:price,{avatars:[]})
   end
 
   private

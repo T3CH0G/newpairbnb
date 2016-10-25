@@ -17,6 +17,7 @@ root 'home#index'
       only: [:create, :edit, :update]
   end
 
+  post "/listings/new", to: 'listings#new'
   get "/success", to: 'listings#success'
   get "/book", to: 'listings#book'
   post "/book", to: 'listings#book'
