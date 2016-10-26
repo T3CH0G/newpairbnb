@@ -29,7 +29,6 @@ root 'home#index'
   get '/search', to: 'listings#search'
   get '/payment', to: 'payments#new'
   post '/payments', to: 'payments#create'
-  get "/", to: 'home#index'
 end
 
 
