@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'unicorn'
+gem 'rails_12factor'
+gem 'foreman'
 gem 'searchkick'
 gem 'braintree'
 gem 'sidekiq'
