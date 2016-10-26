@@ -1,0 +1,28 @@
+<div class="jumbotron">
+<h1 id="main"> 
+<% if current_user %>
+Welcome to Pairbnb,
+<%=current_user.name%>
+<% else %>
+Welcome to Pairbnb,
+login to enjoy available functions
+<% end %>
+ </h1>
+</div>
+
+<div class="text-center" id="functions">
+<div class="row" id="listings">
+Available Functions
+</div>
+<%= link_to "Create New Listing", new_listing_path %>
+<br>
+<%= link_to "Show all Listings", listings_path %>
+<br>
+<%= link_to "Show all Users", users_path %>
+</div>
+
+
+
+
+
+

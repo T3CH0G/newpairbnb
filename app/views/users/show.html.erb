@@ -1,0 +1,113 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+</head>
+
+<body class="w3-light-grey">
+
+<!-- Page Container -->
+<div class="w3-container w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding" style="margin:0 -16px">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+      <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-container">
+        <h4 class="w3-center"><%=@user.name%></h4>
+        <p class="w3-center">
+          <%if @user.avatars[0] !=  nil%>
+              <%= image_tag (@user.avatars[0].medium.url) %>
+              <%else%>
+              No images yet, click below to upload!
+              <% end %>
+              </p>
+              <hr>
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i cclass="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><%=@user.name%></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.email%></p>
+          <%if @user==current_user%>
+          <p>
+        <%= form_for @user do |f| %>
+        <div class="w3-group">
+        <%= f.label :avatars,"Choose a profile pic:"%> <br>
+        <%= f.file_field :avatars, multiple: true, :class=> "w3-input w3-border w3-hover-border-black" %>
+        </div>
+        <%= f.submit "Save changes",:class=> "w3-btn w3-btn-block w3-padding-12" %>
+        <% end %>
+    		</p>
+        <%end%>
+          <hr>
+        </div>
+        </div>
+        </div>
+
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Listings</h2>
+        <% if @user.listings.count == 0%>
+        <h2> No listings yet!</h2>
+        <%else%>
+        <%@user.listings.each do |x| %>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b><%=x.title%></b></h5>
+          <h6 class="w3-text-teal">Tags:<span class="w3-tag w3-teal w3-round"><%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></span></h6>
+          <p><%=x.description%></p>
+          <%if x.avatars[0] !=  nil%>
+						<%= image_tag (x.avatars[0].square.url) %>
+						<%else%>
+						No images yet!
+						<% end %>
+            <br><br>
+            <p><%= link_to "View listing", listing_path(x) %></p>
+						<hr>
+						</div>
+          <% end %>
+          <hr>
+        </div>
+        <%end%>
+			
+			<div class="w3-container w3-card-2 w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Reservations</h2>
+        <% if @user.bookings.count == 0%>
+        <h2> No reservations yet!</h2>
+        <%else%>
+        <%@user.bookings.each do |x| %>
+
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b><%=x.bookable.title%></b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>From <%=x.time_start.to_date%> till <%=x.time_end.to_date%></h6>
+          <p><%= link_to "View listing", listing_path(x.bookable) %></p>
+          <hr>
+        </div>
+      <%end%>
+      <%end%>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p><%= link_to "Back to Users", users_path %></p>
+</footer>
+
+</body>
+
+
+
+
+
+

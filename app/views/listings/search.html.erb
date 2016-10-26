@@ -1,0 +1,56 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+</head>
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:10px">
+<h1 class="text-center"> Search Results </h1>
+<br>
+  <!-- The Grid -->
+<div class="w3-row">
+<% @listings.each do|x| %>
+<div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+<div class="text-center">
+        <h4><b><%=x.title%></b></h4>
+        <hr class="w3-clear">
+        <p><b>Description:</b>
+						<%=x.description%><br><br>
+						<b>Location:</b>
+						<%=x.location%><br><br>
+						<b>Tags:</b>
+						<%= raw x.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><br>
+						</p>
+          <div class="w3-row-padding" style="margin:0 -16px">
+		          <%if x.avatars[0] !=  nil%>
+							<%= image_tag (x.avatars[0].medium.url) %>
+							<%else%>
+							No images yet!
+							<% end %>
+            </div><br>
+        <b>Posted by:</b>
+        <%= link_to x.user.name, user_path(x.user.id) %><br>
+        <b><br>
+        <button type="button" class="btn btn-primary"><%= link_to "View full listing", listing_path(x) %></button><br><br>
+        </b>
+        </div>
+			</div>
+		<br>
+    <%end%>
+   </div>
+  <%= will_paginate @listings %>
+</div>
+
+<div class="row">
+<footer>
+<%= link_to "Home", root_path %>
+</footer>
+</div>
+
+

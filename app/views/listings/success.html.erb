@@ -1,0 +1,23 @@
+<h1> Booking confirmed! </h1>
+<h4> Details </h4>
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <p>Listing name: <%= link_to @listing.title, listing_path(@listing) %></p>
+    <p>No. of Guests: <%= @Acts_as_bookable_booking.amount%> </p>
+    <p>Check-in Date: <%= @Acts_as_bookable_booking.time_start %></p>
+
+    <p>Checkout Date: <%= @Acts_as_bookable_booking.time_end %></p>
+
+    <strong>Payment Status:</strong>
+      <% if @Acts_as_bookable_booking.payments.where(status: :authorized).count == 0%>
+      <span class="btn btn-danger"> NOT PAID </span>
+
+       <%= link_to 'Pay Now' , pay_path(@Acts_as_bookable_booking.id.to_s), class: "btn btn-warning"  %>
+      <% else %>
+      <span class="btn btn-success">PAID</span>
+      <% end %>
+  </li>
+</ul>
+
+<%= link_to "Back to Listing", listing_path(@listing)%>

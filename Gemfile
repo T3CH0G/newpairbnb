@@ -1,12 +1,28 @@
 source 'https://rubygems.org'
 
-
+gem 'unicorn'
+gem 'rails_12factor'
+gem 'foreman'
+gem 'searchkick'
+gem 'braintree'
+gem 'sidekiq'
+gem 'will_paginate'
+gem 'ice_cube'
+gem 'acts_as_bookable'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'fog'
+gem 'mini_magick'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'figaro'
+gem 'clearance'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

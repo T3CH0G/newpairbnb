@@ -1,0 +1,39 @@
+<head>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif;}
+.w3-left, .w3-right, .w3-tag {cursor:pointer;}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px;}
+</style>
+</head>
+
+    <%= form_for @listing do |f| %>
+    <div class="w3-group">
+   <%= f.label :title %><br>
+     <%= f.text_field :title, :class=> "w3-input w3-border w3-hover-border-black" %>
+     </div>
+     <div class="w3-group">
+   <%= f.label :description %><br>
+     <%= f.text_field :description, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <%= f.label :location %><br>
+     <%= f.text_field :location, :class=> "w3-input w3-border w3-hover-border-black"%>
+     <div class="w3-group">
+     <%= f.label :capacity %><br>
+     <%= f.number_field :capacity, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <%= f.label :price %><br>
+     <%= f.number_field :price, :class=> "w3-input w3-border w3-hover-border-black"%>
+     <div class="w3-group">
+     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+     <%= f.text_field :tag_list, :class=> "w3-input w3-border w3-hover-border-black"%>
+     </div>
+     <div class="w3-group">
+     <%= f.label :avatars,"Images:"%> <br>
+     <%= f.file_field :avatars, multiple: true, :class=> "w3-input w3-border w3-hover-border-black" %>
+     </div>
+
+     <%= f.submit "Save changes",:class=> "w3-btn w3-btn-block w3-padding-12" %>
+   <% end %>

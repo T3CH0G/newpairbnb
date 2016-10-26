@@ -1,0 +1,43 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+</head>
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:10px">
+<h1 class="text-center"> All Users </h1>
+<br>
+
+  <!-- The Grid -->
+<div class="w3-row">
+<% @user.each do|x| %>
+<div class="w3-container w3-card-2 w3-white w3-round w3-margin"><br>
+<div class="text-center">
+        <h4><b><%=x.name%></b></h4>
+        <hr class="w3-clear">
+        <p><b>Email:</b>
+						<%=x.email%>
+						</p><br>
+        <%= link_to "Check out profile", user_path(x) %><br><br>
+</div>
+</div>
+   <%end%>
+  <%= will_paginate @user %>
+</div>
+</div>
+
+<div class="row">
+<footer>
+<%= link_to "Home", root_path %>
+</footer>
+</div>
+
+
+
+

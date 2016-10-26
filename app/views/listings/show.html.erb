@@ -1,0 +1,205 @@
+<head>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif;}
+.w3-left, .w3-right, .w3-tag {cursor:pointer;}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px;}
+</style>
+<script> 
+$( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 3
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 3
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
+  </head>
+
+<div class="w3-content w3-container" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
+
+  <div class="w3-section">
+    <h1><b><%=@listing.title%></b></h1>
+  </div>
+
+ <div class="w3-display-container mySlides"> 
+  <% if @listing.avatars?%>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <%for i in 0..@listing.avatars.count - 1 %>
+          <li data-target="#myCarousel" data-slide-to="<%=i%>"></li>
+          <%end%>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <% @listing.avatars.each_with_index do |avatar, index|%>
+          <div class="item <%= 'active' if index == 0%>">
+            <%= image_tag (avatar.large.url) %>
+          </div>
+          <%end%>
+      </div>
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">	
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  <%else%>
+  <div class="text-center">
+  No images yet!
+  </div>
+  <%end%>
+</div>
+
+
+<div class="w3-row">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Details</span>
+    </div>
+    <div class="w3-col l3 m6 w3-light-grey w3-padding-large">
+      <h3>Listing Name:</h3>
+      <p><%=@listing.title%></p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-grey w3-padding-large">
+      <h3>Description:</h3>
+      <p><%=@listing.description%></p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-dark-grey w3-padding-large">
+      <h3>Location:</h3>
+      <p><%=@listing.location%></p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-black w3-padding-large">
+      <h3>Tags</h3>
+      <p><%= @listing.tag_list%></p>
+    </div>
+  </div>
+
+
+<% if @msg%>
+<div class="row" >
+<div class ="col-md-12">
+<%= @msg %> 
+</div>
+</div>
+<%end%>
+
+<%if @listing.user != current_user%>
+  <div class="w3-row-padding" style="margin:0 -16px" id="plans">
+    <div class="w3-center w3-padding-64">
+      <h3>Booking Form</h3>
+      <p>Check for availability below, no two occupants can share the same timespan.</p>
+    </div>
+	 <form method=post action='/book'>
+   <div class="w3-group">
+		<label for="from">From:</label>
+		<input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="from" name="from">
+  </div>
+  <div class="w3-group">
+		<label for="to">To:</label>
+		<input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" id="to" name="to">
+  </div>
+  <div class="w3-group">
+		<label for="amount">Number of people:</label>
+		<input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="number" id="amount" name="amount">
+  </div>
+  <div class="w3-group">
+		<input type="hidden" name="id" value=<%=@listing.id%> >
+    <input type="hidden" name="price" value=<%=@listing.price%> >
+  </div>
+		<input class="w3-btn w3-btn-block w3-padding-12" type="submit" value="Submit">
+	</form>
+    <% end %>
+</div>
+
+<div class="w3-row-padding" style="margin:0 -16px" id="about">
+<div class="w3-center w3-padding-64">
+  <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Bookings</span>
+  </div>
+<div class="row">
+  <%if @listing.bookings.count > 0 %>
+  	<%@cbookings.each do |x|%>
+    <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <li class="w3-black w3-xlarge w3-padding-32"><%=x.id%></li>
+        <li class="w3-padding-16"><b>Booking by: </b><%=x.booker.name%></li>
+        <li class="w3-padding-16"><b>From: </b><%=x.time_start.to_date%></li>
+        <li class="w3-padding-16"><b>Till: </b><%=x.time_end.to_date%></li>
+      </ul>
+    </div>
+	 <%end%>
+   </div>
+   <div class="row">
+   <div class="text-center"> <%= will_paginate @cbookings %> </div>
+   </div>
+  <% elsif currrent_user=@listing.user && @listing.bookings.count == 0%>
+  <div class="w3-third w3-margin-bottom">
+  </div>
+  <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <li class="w3-black w3-xlarge w3-padding-32">No bookings yet!</li>
+    </ul>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+    </div>
+    <br>
+  <% else %>
+  <div class="w3-third w3-margin-bottom">
+  </div>
+      <div class="w3-third w3-margin-bottom">
+      <ul class="w3-ul w3-border w3-center w3-hover-shadow">
+      <li class="w3-black w3-xlarge w3-padding-32">No bookings yet! Fill in above fields to book!</li>
+    </ul>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+    </div>
+  <%end%>
+  </div>
+  </div>
+
+<div class="row">
+  <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+  <%= link_to "Home", root_path %>
+  <br>
+  <% if @listing.user == current_user %>
+  <%= link_to "Edit", edit_listing_path(@listing) %><br>
+  <%= link_to "Delete", listing_path(@listing), method: :delete %><br>
+  <%end%>
+  </footer>
+  </div>
+

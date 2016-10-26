@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congratulations! You have received a booking from <%= @customer.name %>, email: <%= @customer.email%></h1>
+    <p>
+      You can see details of the listing of your reservation here:<%= link_to "#{@listing.title}", listing_path(@listing) %>
+
+    </p>
+  </body>
+</html>
