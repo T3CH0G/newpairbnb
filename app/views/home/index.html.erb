@@ -1,28 +1,22 @@
-<div class="jumbotron">
-<h1 id="main"> 
-<% if current_user %>
-Welcome to Pairbnb,
-<%=current_user.name%>
-<% else %>
-Welcome to Pairbnb,
-login to enjoy available functions
-<% end %>
- </h1>
+<body>
+
+<div style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
+<img src="http://pairbnb.herokuapp.com/landing4.jpg" style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: -71.92px;">
 </div>
 
 <div class="text-center" id="functions">
-<div class="row" id="listings">
-Available Functions
+      <div>PairBnB</h1>
+        <p>
+			<div class="row" id="listings">
+			<%= link_to "Create New Listing", new_listing_path %>
+			|
+			<%= link_to "Show all Listings", listings_path %>
+			|
+			<%= link_to "Show all Users", users_path %>
+			</div>
+		</p>
+    </div>
 </div>
-<%= link_to "Create New Listing", new_listing_path %>
-<br>
-<%= link_to "Show all Listings", listings_path %>
-<br>
-<%= link_to "Show all Users", users_path %>
-</div>
 
-
-
-
-
+</body>
 
